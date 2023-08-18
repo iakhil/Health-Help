@@ -137,9 +137,9 @@ class CrudApp:
         return json({"item": {"id": item[0], "name": item[1], "description": item[2]}})
 
     
-    async def update(self, request, item_id):
+    async def update(self, request, item_id: int):
 
-        new_data = request.join 
+        new_data = request.json
 
         async with aiosqlite.connect(db_path) as db:
             await db.execute("UPDATE items SET name = ?, description = ? WHERE id = ?", (new_data["name"], new_data["description"], item_id))
@@ -148,21 +148,21 @@ class CrudApp:
         return json({"message": "Item updated."})
 
 
-    async def delete(self, request, item_id):
+    async def delete(self, request, item_id: int):
         async with aiosqlite.connect(db_path) as db:
 
             await db.execute("DELETE FROM items where id = ?", (item_id,))
             await db.commit()
 
 
-        return json({"message": "Item created."})
+        return json({"message": "Item deleted."})
 
 crud_app = CrudApp()
 
 app.add_route(crud_app.create, '/create', methods=['POST'])
 app.add_route(crud_app.read, '/read/<item_id:int>', methods=['GET'])
-app.add_route(crud_app.update, '/update', methods=['PUT'])
-app.add_route(crud_app.delete, '/delete', methods=['DELETE'])
+app.add_route(crud_app.update, '/update/<item_id:int>', methods=['PUT'])
+app.add_route(crud_app.delete, '/delete/<item_id:int>', methods=['DELETE'])
 
 db_settings = {
 
