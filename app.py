@@ -83,8 +83,12 @@
 from sanic import Sanic 
 from sanic.response import json
 import aiosqlite 
+from sanic_cors import CORS
 
 app = Sanic(name="crud_app")
+
+CORS(app)
+
 db_path = 'mydatabase.db'
 
 class CrudApp:
@@ -92,6 +96,13 @@ class CrudApp:
     def __init__(self):
 
         app.add_task(self.setup_db())
+
+
+    async def hello(self, request):
+
+        return json({"message": "Hello!"})
+
+
 
     async def setup_db(self):
 
@@ -163,6 +174,7 @@ app.add_route(crud_app.create, '/create', methods=['POST'])
 app.add_route(crud_app.read, '/read/<item_id:int>', methods=['GET'])
 app.add_route(crud_app.update, '/update/<item_id:int>', methods=['PUT'])
 app.add_route(crud_app.delete, '/delete/<item_id:int>', methods=['DELETE'])
+app.add_route(crud_app.hello, '/', methods=['GET'])
 
 db_settings = {
 
