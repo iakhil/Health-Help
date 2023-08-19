@@ -64,3 +64,13 @@ th {
 td {
   padding: 38px;
 }
+
+
+.create-form {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 40%;
+}

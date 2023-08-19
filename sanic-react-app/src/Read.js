@@ -34,7 +34,7 @@ function Read() {
         <div className="search">
             <input
             type="text"
-            placeholder="Search"
+            placeholder="Enter ID."
             value={id}
             onChange={handleInputChange}
             />
