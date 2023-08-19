@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
+import Read from './Read';
 
 function App(){
   const [message, setMessage] = useState('');
@@ -13,9 +15,12 @@ function App(){
 
   return (
 
-    <div> 
-      <h1>{message} </h1>
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/read" element={<Read/>} />
+    </Routes>   
+    </BrowserRouter>
+
   );
 
 }

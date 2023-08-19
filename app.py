@@ -88,7 +88,6 @@ from sanic_cors import CORS
 app = Sanic(name="crud_app")
 
 CORS(app)
-
 db_path = 'mydatabase.db'
 
 class CrudApp:
