@@ -26,6 +26,7 @@ function Create() {
            <input type="description" name="descrption" value={description} placeholder='Description' onChange={(e) => setDescription(e.target.value)} />
 
            <button type="Submit">Submit</button>
+    
     </form>
 
     </div>
