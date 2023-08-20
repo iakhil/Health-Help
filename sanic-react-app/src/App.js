@@ -4,7 +4,7 @@ import axios from 'axios';
 import Read from './Read';
 import Create from './Create';
 import Delete from './Delete';
-
+import Update from './Update';
 
 function App(){
   const [message, setMessage] = useState('');
@@ -23,6 +23,7 @@ function App(){
       <Route path="/read" element={<Read/>} />
       <Route path="/create" element={<Create/>} />
       <Route path="/delete" element={<Delete/>} />
+      <Route path="/update" element={<Update/>} />
     </Routes>   
     </BrowserRouter>
 
