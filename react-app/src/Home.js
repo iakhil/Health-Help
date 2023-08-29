@@ -10,10 +10,6 @@ function Home(){
 
 
 
-
-
-
-
     return (
 
         <div>

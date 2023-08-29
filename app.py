@@ -84,7 +84,7 @@ from sanic import Sanic
 from sanic.response import json
 import aiosqlite 
 from sanic_cors import CORS
-
+from . assistant import assistant_response
 app = Sanic(name="crud_app")
 
 CORS(app)
@@ -167,6 +167,20 @@ class CrudApp:
 
         return json({"message": "Item deleted."})
 
+    
+    async def get_assistant_response():
+
+        async with aiosqlite.connect(db_path) as db:
+            cursor = await db.cursor()
+            query = await cursor.fetchone()
+
+        assist_response = assistant_response(query)
+
+        return json({"assistant_response": assist_response     
+        
+        })
+
+
 crud_app = CrudApp()
 
 app.add_route(crud_app.create, '/create', methods=['POST'])
@@ -174,6 +188,7 @@ app.add_route(crud_app.read, '/read/<item_id:int>', methods=['GET'])
 app.add_route(crud_app.update, '/update/<item_id:int>', methods=['PUT'])
 app.add_route(crud_app.delete, '/delete/<item_id:int>', methods=['DELETE'])
 app.add_route(crud_app.hello, '/', methods=['GET'])
+app.add_route(crud_app.assist, '/assist', methods=['GET', 'POST'])
 
 db_settings = {
 
@@ -186,4 +201,3 @@ app.config.update(db_settings)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)
-
